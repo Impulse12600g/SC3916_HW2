@@ -72,27 +72,75 @@ router.post('/signin', function (req, res) {
     }
 });
 
-router.route('/testcollection')
+router.route('/movies')
     .delete(authController.isAuthenticated, function(req, res) {
         console.log(req.body);
         res = res.status(200);
         if (req.get('Content-Type')) {
             res = res.type(req.get('Content-Type'));
         }
-        var o = getJSONObjectForMovieRequirement(req);
-        res.json(o);
+            res.send({
+                status: 200,
+                message: "movie deleted",
+                headers: req.headers,
+                query: req.query,
+                env: process.env.UNIQUE_KEY
+            });
     }
     )
-    .put(authJwtController.isAuthenticated, function(req, res) {
+    .put( function(req, res) {
         console.log(req.body);
         res = res.status(200);
         if (req.get('Content-Type')) {
             res = res.type(req.get('Content-Type'));
         }
-        var o = getJSONObjectForMovieRequirement(req);
-        res.json(o);
+
+            res.send({
+                status: 200,
+                message: "movie udated",
+                headers: req.headers,
+                query: req.query,
+                env: process.env.UNIQUE_KEY
+            });
     }
+    )
+
+    .get(function(req, res) {
+            console.log(req.body);
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+        res.send({
+            status: 200,
+            message: "GET movies",
+            headers: req.headers,
+            query: req.query,
+            env: process.env.UNIQUE_KEY
+        });
+
+        }
+        )
+
+    .post(function(req, res) {
+            console.log(req.body);
+            res = res.status(200);
+            if (req.get('Content-Type')) {
+                res = res.type(req.get('Content-Type'));
+            }
+            res.send({
+                status: 200,
+                message: "movie saved",
+                headers: req.headers,
+                query: req.query,
+                env: process.env.UNIQUE_KEY
+            });
+
+        }
     );
+
+
+
 
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
